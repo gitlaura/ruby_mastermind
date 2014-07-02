@@ -1,7 +1,7 @@
-class CodeChecker
-	attr_reader :code, :guess, :black, :white
+class GuessChecker
+	attr_accessor :code, :guess, :black, :white
 
-	def eval(guess, code, colors)
+	def check_guess(guess, code, colors)
 		@code = code
 		@guess = guess
 		@black = 0
@@ -25,12 +25,13 @@ class CodeChecker
 		colors.each do |color|
 			temp_guess_color_count = temp_guess.count(color)
 			temp_code_color_count = temp_code.count(color)
+
 			if temp_code_color_count == 0 || temp_guess_color_count == 0
-				@white = @white
+				@white
 			elsif temp_code_color_count == temp_guess_color_count
-				@white += 1
+				@white += temp_code_color_count
 			else
-				@white = [temp_code_color_count, temp_guess_color_count].min
+				@white += [temp_code_color_count, temp_guess_color_count].min
 			end
 		end
 	end

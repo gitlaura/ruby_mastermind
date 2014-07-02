@@ -4,10 +4,7 @@ class CodeList
 
 	def initialize
 		@possibilities = []
-	end
-
-	def create_list_of_possibilities(colors)
-		@colors = colors
+		@colors = ["R", "Y", "G", "B", "P", "O"]
 		colors.each do |spot_one|
 			colors.each do |spot_two|
 				colors.each do |spot_three|
@@ -17,7 +14,6 @@ class CodeList
 				end
 			end
 		end
-		@possibilities
 	end
 
 	def update_list(black_pegs, white_pegs, guess)		

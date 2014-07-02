@@ -2,10 +2,9 @@ require 'code_list.rb'
 
 describe "Code List" do
 	before (:each) do 
-		@colors = ["R", "Y", "G", "B", "P", "O"]
 		@code_list = CodeList.new
-		@code_list.create_list_of_possibilities(@colors)
 	end
+	
 	it "creates list of possible combinations" do
 		expect(@code_list.possibilities[0]).to eq("RRRR")
 		expect(@code_list.possibilities[1295]).to eq("OOOO")
