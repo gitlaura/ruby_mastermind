@@ -2,7 +2,7 @@ require 'code_list.rb'
 
 describe "Code List" do
 	before (:each) do 
-		@code_list = CodeList.new
+		@code_list = CodeList.new(["R", "Y", "G", "B", "P", "O"])
 	end
 	
 	it "creates list of possible combinations" do
@@ -18,6 +18,3 @@ describe "Code List" do
 		expect(@code_list.possibilities).not_to include("GPBP")
 	end
 end
-
-
-["R", "Y", "G", "B", "P", "O"]
