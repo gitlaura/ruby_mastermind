@@ -16,15 +16,15 @@ class CodeList
 		end
 	end
 
-	def update_list(black_pegs, white_pegs, guess)		
+	def update_list(black, white, guess)		
 		index = 0
 		saved_guess = guess.to_sym
 
 		until index == @possibilities.size do
 			blackcounter, whitecounter = 0, 0
+			temp_guess = saved_guess.to_s
 			saved_code = @possibilities[index].to_sym
 			temp_code = saved_code.to_s
-			temp_guess = saved_guess.to_s
 
 			char = 0
 			until char == 4 do 
@@ -42,13 +42,13 @@ class CodeList
 				if temp_code_color_count == 0 || temp_guess_color_count == 0
 					whitecounter = whitecounter
 				elsif temp_code_color_count == temp_guess_color_count
-					whitecounter += 1
+					whitecounter += temp_code_color_count
 				else
-					whitecounter = [temp_code_color_count, temp_guess_color_count].min
+					whitecounter += [temp_code_color_count, temp_guess_color_count].min
 				end
 			end
 
-			if blackcounter != black_pegs || whitecounter != white_pegs
+			if blackcounter != black || whitecounter != white
 				@possibilities[index] = "INVALID" 
 			end
 

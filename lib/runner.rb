@@ -22,14 +22,17 @@ class Runner
 		
 		until @black == 4 || @guess_counter > 10 do 
 			get_guess
-			@message_center.display_guess(@guess)
+			@message_center.display_guess(@guess, @guess_counter)
 			check_guess
 			@message_center.display_results(@black, @white) 
 			@guess_counter += 1
 		end
 
-		@message_center.goodbye(@guess_counter) if @black == 4
-		@message_center.game_over if @guess_counter > 10
+		if @black == 4
+			@message_center.goodbye(@guess_counter - 1)
+		else 
+			@message_center.game_over
+		end
 	end
 
 	def get_players

@@ -24,7 +24,7 @@ describe 'Message Center' do
 
 	it "display_guess" do 
 		@message_center.should_receive(:give)
-		@message_center.display_guess("YYYY")
+		@message_center.display_guess("YYYY", 2)
 	end
 
 	it "display_results" do 

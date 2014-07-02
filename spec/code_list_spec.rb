@@ -13,8 +13,11 @@ describe "Code List" do
 
 	it "updates based on the number of black and white pegs it's given" do 
 		expect(@code_list).to respond_to(:update_list)
-		@code_list.update_list(2, 0, "ROPY")
-		expect(@code_list.possibilities).to include("RGBY")
-		expect(@code_list.possibilities).not_to include("RGOY")
+		@code_list.update_list(0, 2, "GOYR")
+		expect(@code_list.possibilities).to include("PYRY")
+		expect(@code_list.possibilities).not_to include("GPBP")
 	end
 end
+
+
+["R", "Y", "G", "B", "P", "O"]

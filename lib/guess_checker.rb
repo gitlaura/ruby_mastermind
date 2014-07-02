@@ -1,9 +1,9 @@
 class GuessChecker
-	attr_accessor :code, :guess, :black, :white
+	attr_accessor :black, :white
 
 	def check_guess(guess, code, colors)
-		@code = code
 		@guess = guess
+		@code = code
 		@black = 0
 		@white = 0
 		saved_guess = guess.to_sym
