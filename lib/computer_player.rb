@@ -1,6 +1,5 @@
 require_relative 'code_list.rb'
 
-
 class ComputerPlayer
 	attr_reader :code_list
 

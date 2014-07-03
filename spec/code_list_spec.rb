@@ -41,11 +41,5 @@ describe "Code List" do
 		@code_list.new_possibilities = []
 		@code_list.update_new_possibilities(2, 0, 3, 3, 1)
 		expect(@code_list.new_possibilities).to eq([])
-	end	
-
-	it "deletes invalid possibilities" do 
-		@code_list.possibilities = ["RYPP", "INVALID", "RPPP", "INVALID"]
-		@code_list.delete_invalid_possibilities
-		expect(@code_list.possibilities).to eq(["RYPP", "RPPP"])
 	end
 end

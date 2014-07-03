@@ -58,9 +58,4 @@ class CodeList
 			@new_possibilities << @possibilities[index]
 		end
 	end
-
-	def delete_invalid_possibilities
-		@possibilities.delete("INVALID")
-		@possibilities
-	end
 end
