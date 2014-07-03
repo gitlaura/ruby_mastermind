@@ -2,7 +2,7 @@ require 'computer_player.rb'
 
 describe "Computer Player" do
 	before(:each) do 
-		@computer_player = ComputerPlayer.new
+		@computer_player = ComputerPlayer.new(["R", "Y", "G", "B", "P", "O"])
 	end
 
 	it "selects a secret code" do

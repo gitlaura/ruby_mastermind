@@ -8,7 +8,8 @@ class Runner
 
 	def initialize
 		@message_center = MessageCenter.new
-		@computer_player = ComputerPlayer.new
+		@colors = ["R", "Y", "G", "B", "P", "O"]
+		@computer_player = ComputerPlayer.new(@colors)
 		@human_player = HumanPlayer.new
 		@guess_checker = GuessChecker.new
 		@players = [@human_player, @computer_player]
@@ -49,7 +50,7 @@ class Runner
 	end
 
 	def check_guess
-		@guess_checker.check_guess(@guess, @secret_code, ["R", "Y", "G", "B", "P", "O"])
+		@guess_checker.check_guess(@guess, @secret_code, @colors)
 		@black = @guess_checker.black
 		@white = @guess_checker.white
 	end

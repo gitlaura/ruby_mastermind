@@ -2,9 +2,9 @@ class CodeList
 	attr_accessor :possibilities
 	attr_reader :colors
 
-	def initialize
+	def initialize(colors)
 		@possibilities = []
-		@colors = ["R", "Y", "G", "B", "P", "O"]
+		@colors = colors
 		colors.each do |spot_one|
 			colors.each do |spot_two|
 				colors.each do |spot_three|

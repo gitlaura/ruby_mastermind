@@ -16,11 +16,11 @@ describe "UI" do
  	end
 
  	it "should output a message for the user" do
- 		@output.string.should =~ /test message/
+ 		expect(@output.string).to eq("test message\n")
  	end
 
  	it "should return the user's input" do
- 		@input_received.should == "test info"
+ 		expect(@input_received).to eq("test info")
  	end
 
 end

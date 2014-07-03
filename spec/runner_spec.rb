@@ -3,8 +3,8 @@ require 'runner.rb'
 describe "Runner" do  
 	before(:each) do 
 		@runner = Runner.new
-		@runner.message_center.should_receive(:get_code_maker) {2}
-		@runner.message_center.should_receive(:get_guesser) {2}
+		expect(@runner.message_center).to receive(:get_code_maker) {2}
+		expect(@runner.message_center).to receive(:get_guesser) {2}
 		@runner.get_players
 	end
 

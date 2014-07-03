@@ -6,15 +6,15 @@ describe "Human player" do
 	end
 
 	it "selects a secret code" do
-		@human_player.should_receive(:give)
-		@human_player.should_receive(:receive) {"RYOP"}
+		expect(@human_player).to receive(:give)
+		expect(@human_player).to receive(:receive) {"RYOP"}
 		secret_code = @human_player.select_secret_code
 		expect(secret_code).to include("RYOP")
 	end
 
 	it "makes a guess" do 
-		@human_player.should_receive(:give)
-		@human_player.should_receive(:receive) {"RYOP"}
+		expect(@human_player).to receive(:give)
+		expect(@human_player).to receive(:receive) {"RYOP"}
 		guess = @human_player.get_guess
 		expect(guess).to include("RYOP")
 	end
