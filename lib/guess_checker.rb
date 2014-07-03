@@ -2,7 +2,9 @@ class GuessChecker
 	attr_accessor :black, :white, :temp_code, :temp_guess
 
 	def check_guess(guess, code, colors)
-		@temp_guess, @temp_code = guess, code
+		saved_guess = guess.to_sym
+		saved_code = code.to_sym
+		@temp_guess, @temp_code = saved_guess.to_s, saved_code.to_s
 		@black = count_black_pegs
 		@white = count_white_pegs(colors)
 	end

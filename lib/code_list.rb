@@ -1,18 +1,17 @@
 class CodeList
-	attr_accessor :possibilities, :temp_code, :temp_guess, :new_possibilities
+	attr_accessor :possibilities, :new_possibilities, :temp_code, :temp_guess 
 	attr_reader :colors
 
 	def initialize(colors)
-		@possibilities = []
 		@colors = colors
-		colors.each do |spot_one|
-			colors.each do |spot_two|
-				colors.each do |spot_three|
-					colors.each do |spot_four|
-						@possibilities << (spot_one + spot_two + spot_three + spot_four)
-					end
-				end
-			end
+		create_list_of_possible_codes
+	end
+
+	def create_list_of_possible_codes
+		@possibilities = @colors.repeated_permutation(4).to_a
+		@possibilities.each_with_index do |possibility, index|
+			temp_string = "#{possibility[0]}#{possibility[1]}#{possibility[2]}#{possibility[3]}"
+			@possibilities[index] = temp_string
 		end
 	end
 

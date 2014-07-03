@@ -5,8 +5,6 @@ class MessageCenter
 	include UI
 	include Validity
 
-	attr_accessor :code_maker, :guesser
-
 	def get_code_maker
 		give("Player 1 will make the secret code. Please select a type of player:\n1) Human\n2) Computer")
 		selection = receive.to_i
@@ -24,15 +22,15 @@ class MessageCenter
 	end
 
 	def display_code_message
-		give("Player 1: Created the secret code.")
+		give("Player 1 created the secret code.")
 	end
 
 	def display_guess(guess, guess_counter)
-		give("Player 2: Guess ##{guess_counter} is #{guess}")
+		give("Player 2's guess ##{guess_counter} is #{guess}")
 	end
 
 	def display_results(black, white)
-		give("Player 1: That guess gets #{black} black peg(s) and #{white} white peg(s).")
+		give("That guess gets #{black} black peg(s) and #{white} white peg(s).")
 	end
 
 	def goodbye(guess_counter)
