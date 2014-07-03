@@ -16,7 +16,7 @@ describe "UI" do
  	end
 
  	it "should output a message for the user" do
- 		expect(@output.string).to eq("test message\n")
+ 		expect(@output.string).to eq("\ntest message\n")
  	end
 
  	it "should return the user's input" do
