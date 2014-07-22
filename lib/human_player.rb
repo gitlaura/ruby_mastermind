@@ -2,7 +2,6 @@ require_relative 'UI.rb'
 require_relative 'validity.rb'
 
 class HumanPlayer
-	include UI
 	include Validity
 
 	def select_secret_code

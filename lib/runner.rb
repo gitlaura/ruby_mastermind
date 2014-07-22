@@ -2,15 +2,18 @@ require_relative 'message_center.rb'
 require_relative 'computer_player.rb'
 require_relative 'human_player.rb'
 require_relative 'guess_checker.rb'
+require_relative 'ui.rb'
+require_relative 'ui_web.rb'
 
 class Runner
 	attr_reader :message_center, :computer_player, :human_player, :code_maker, :guesser, :secret_code, :guess, :black, :white
 
+	COLORS = ["R", "Y", "G", "B", "P", "O"]
+
 	def initialize
-		@colors = ["R", "Y", "G", "B", "P", "O"]
 		@message_center = MessageCenter.new
-		@computer_player = ComputerPlayer.new(@colors)
 		@human_player = HumanPlayer.new
+		@computer_player = ComputerPlayer.new(COLORS)
 		@guess_checker = GuessChecker.new
 		@players = [@human_player, @computer_player]
 	end
@@ -24,7 +27,7 @@ class Runner
 		until @black == 4 || guess_counter > 10 do 
 			get_guess
 			@message_center.display_guess(@guess, guess_counter)
-			check_guess
+			check_guess(@guess, @secret_code)
 			@message_center.display_results(@black, @white) 
 			guess_counter += 1
 		end
@@ -49,8 +52,8 @@ class Runner
 		@guess = @guesser.get_guess(@black, @white, @guess)
 	end
 
-	def check_guess
-		@guess_checker.check_guess(@guess, @secret_code, @colors)
+	def check_guess(guess, secret_code)
+		@guess_checker.check_guess(guess, secret_code, COLORS)
 		@black = @guess_checker.black
 		@white = @guess_checker.white
 	end

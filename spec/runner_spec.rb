@@ -23,10 +23,8 @@ describe "Runner" do
 		expect(@runner.guess.size).to eq(4)
 	end
 
-	it "displays the black and white pegs" do 
-		@runner.get_secret_code
-		@runner.get_guess
-		@runner.check_guess
+	it "displays the black and white pegs" do
+		@runner.check_guess("RYYY", "RRRR")
 		expect(@runner.black).to be_between(0, 4)
 		expect(@runner.white).to be_between(0, 4)
 	end

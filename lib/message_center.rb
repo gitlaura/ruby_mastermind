@@ -2,8 +2,8 @@ require_relative 'UI.rb'
 require_relative 'validity.rb'
 
 class MessageCenter
-	include UI
 	include Validity
+	include UI
 
 	def get_code_maker
 		give("Player 1 will make the secret code. Please select a type of player:\n1) Human\n2) Computer")
