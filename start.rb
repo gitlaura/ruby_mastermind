@@ -25,7 +25,7 @@ else
 	Guesser = nil
 	SecretCode = nil
 	Guesses = []
-	Main = Main.new
+	Game = []
 
 	get '/' do
 		erb :home
@@ -33,13 +33,15 @@ else
 
 	post '/' do
 		unless params[:code_maker].nil?
+			Game = Main.new
 			CodeMaker = params[:code_maker]
 			@display_message = "Awesome! Player 1 is set."
-		end
-
-		unless params[:guesser].nil?
-			Guesser = params[:guesser]
-			@display_message = "Great! Now, player 2 is set."
+			if CodeMaker == "2"
+				player = Game.players[CodeMaker.to_i - 1]
+				Game.code_maker = player
+				SecretCode = Game.get_secret_code
+				@display_message = "Awesome! Player 1 set the secret code."
+			end
 		end
 
 		unless params[:secret_code].nil?
@@ -47,13 +49,34 @@ else
 			@display_message = "Nice job! Secret code is set."
 		end
 
+		unless params[:guesser].nil?
+			Guesser = params[:guesser]
+			@display_message = "Great! Now, player 2 is set."
+			if Guesser == "2"
+				player = Game.players[CodeMaker.to_i - 1]
+				Game.guesser = player
+				scores = [0,0]
+				counter = 1
+				@display_message = nil
+				until @display_message != nil
+					guess = Game.get_guess(counter)
+					scores = Game.check_guess(guess, SecretCode)
+					black, white = scores.first, scores.last
+					Guesses << {:guess => guess, :black => black, :white => white}
+					@display_message = "Player #2 wins! The secret code was #{SecretCode}. lease restart at the command line to play again." if black == 4
+					@display_message = "Game over! Player 1 wins." if Guesses.size >= 10 && black < 4
+					counter += 1
+				end
+			end
+		end
+
 		unless params[:guess].nil?
 			guess = params[:guess]
-			scores = Main.check_guess(guess, SecretCode)
-			black, white = scores[0], scores[1]
+			scores = Game.check_guess(guess, SecretCode)
+			black, white = scores.first, scores.last
 			Guesses << {:guess => guess, :black => black, :white => white}
 			@display_message = "Good guess! Player #2 wins! Please restart at the command line to play again." if black == 4
-			@display_message = "Game over! Player 1 wins." if Guesses.size == 10 && black < 4
+			@display_message = "Game over! Player 1 wins." if Guesses.size >= 10 && black < 4
 		end
 
 		erb :home

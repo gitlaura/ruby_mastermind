@@ -4,7 +4,8 @@ require_relative 'human_player.rb'
 require_relative 'guess_checker.rb'
 
 class Main
-	attr_reader :interface, :message_center, :computer_player, :human_player, :code_maker, :guesser, :secret_code, :guess, :black, :white
+	attr_accessor :code_maker, :guesser
+	attr_reader :interface, :message_center, :computer_player, :human_player, :players, :secret_code, :guess, :black, :white
 
 	COLORS = ["R", "Y", "G", "B", "P", "O"]
 

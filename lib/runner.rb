@@ -21,6 +21,6 @@ class Runner
 			@main.display_result(scores)
 			@counter += 1
 		end
-		main.end_game(@scores, @counter)
+		@main.end_game(@scores, @counter)
 	end
 end
