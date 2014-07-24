@@ -1,86 +1,48 @@
-<form action="/" method="post">
-  Player #1 - Please select a secret code: 
-  <input type="text" name="secret_code">
-  <input type="submit">
-</form>
-<%= @secret_code_message %>
-<br><br>
-<form action="/" method="post">
-  Player #2 - Please make guesses until you get 4 pegs: 
-  <input type="text" name="guess">
-  <input type="submit">
-</form>
-<br>
+<% if CodeMaker == nil %>
+	<form action="/" method="post"> 
+		Player #1 will select the secret code. Which type of player would you like?<br>
+		<input type="radio" name="code_maker" value="1">Human<br>
+		<input type="radio" name="code_maker" value="2">Computer<br>
+		<input type="submit">
+	</form>
+<% elsif Guesser == nil %>
+	<form action="/" method="post"> 
+		Player #2 will try to guess the secret code in less than 10 tries. Which type of player would you like?<br>
+		<input type="radio" name="guesser" value="1">Human<br>
+		<input type="radio" name="guesser" value="2">Computer<br>
+		<input type="submit">
+	</form>
+<% elsif SecretCode == nil %>
+	<form action="/" method="post">
+	  Player #1 - Please select a secret code: 
+	  <input type="text" name="secret_code">
+	  <input type="submit">
+	</form>
+<% else %>
+	<form action="/" method="post">
+	  Player #2 - Please make guesses until you get 4 black pegs: 
+	  <input type="text" name="guess">
+	  <input type="submit">
+	</form>
+<% end %><br>
+
 <table style="width:400px">
-<th>
-	<td style="width:100px">Guess</td>
-	<td style="width:100px">Black Pegs</td>
-	<td style="width:100px">White Pegs</td>
-</th>
-<tr>
-	<td>#1</td>
-	<td><%= @guess_one %></td>
-	<td><%= @black_one %></td>
-	<td><%= @white_one %></td>
-</tr>
-<tr>
-	<td>#2</td>
-	<td><%= @guess_two %></td>
-	<td><%= @black_two %></td>
-	<td><%= @white_two %></td>
-</tr>
-<tr>
-	<td>#3</td>
-	<td><%= @guess_three %></td>
-	<td><%= @black_three %></td>
-	<td><%= @white_three %></td>
-</tr>
-<tr>
-	<td>#3</td>
-	<td><%= @guess_four %></td>
-	<td><%= @black_four %></td>
-	<td><%= @white_four %></td>
-</tr>
-<tr>
-	<td>#4</td>
-	<td><%= @guess_four %></td>
-	<td><%= @black_four %></td>
-	<td><%= @white_four %></td>
-</tr>
-<tr>
-	<td>#5</td>
-	<td><%= @guess_five %></td>
-	<td><%= @black_five %></td>
-	<td><%= @white_five %></td>
-</tr>
-<tr>
-	<td>#6</td>
-	<td><%= @guess_six %></td>
-	<td><%= @black_six %></td>
-	<td><%= @white_six %></td>
-</tr>
-<tr>
-	<td>#7</td>
-	<td><%= @guess_seven %></td>
-	<td><%= @black_seven %></td>
-	<td><%= @white_seven %></td>
-</tr>
-<tr>
-	<td>#8</td>
-	<td><%= @guess_eight %></td>
-	<td><%= @black_eight %></td>
-	<td><%= @white_eight %></td>
-</tr>
-<tr>
-	<td>#9</td>
-	<td><%= @guess_nine %></td>
-	<td><%= @black_nine %></td>
-	<td><%= @white_nine %></td>
-</tr>
-<tr>
-	<td>#10</td>
-	<td><%= @guess_ten %></td>
-	<td><%= @black_ten %></td>
-	<td><%= @white_ten %></td>
-</tr>
-</table>
+
+<% unless Guesses.empty? %>
+	<th>
+		<td style="width:100px">Guess</td>
+		<td style="width:100px">Black Pegs</td>
+		<td style="width:100px">White Pegs</td>
+	</th>
+<% end %>
+
+<% Guesses.each_with_index do |guess, index| %>
+	<tr>
+		<td>#<%= index + 1 %></td>
+		<td><%= guess[:guess] %></td>
+		<td><%= guess[:black] %></td>
+		<td><%= guess[:white] %></td>
+	</tr>
+<% end %>
+</table><br>
+<em><%= @display_message %></em><br><br>

@@ -1,31 +1,16 @@
 require 'runner.rb'
 
 describe "Runner" do  
-	before(:each) do 
-		@runner = Runner.new
-		expect(@runner.message_center).to receive(:get_code_maker) {2}
-		expect(@runner.message_center).to receive(:get_guesser) {2}
-		@runner.get_players
-	end
+	it "runs the command line game" do
+		runner = Runner.new
 
-	it "gets players" do
-		expect(@runner.code_maker).to eq(@runner.computer_player)
-		expect(@runner.guesser).to eq(@runner.computer_player)
-	end
+		expect(runner.main).to receive(:get_code_maker)
+		expect(runner.main).to receive(:get_guesser)
+		expect(runner.main).to receive(:get_secret_code)
+		expect(runner.main).to receive(:display_secret_code_message)
+		expect(runner.main).to receive(:game_over?){true}
+		expect(runner.main).to receive(:end_game)
 
-	it "creates secret code" do 
-		@runner.get_secret_code
-		expect(@runner.secret_code.size).to eq(4)
-	end
-
-	it "gets a guess from the guesser" do 
-		@runner.get_guess
-		expect(@runner.guess.size).to eq(4)
-	end
-
-	it "displays the black and white pegs" do
-		@runner.check_guess("RYYY", "RRRR")
-		expect(@runner.black).to be_between(0, 4)
-		expect(@runner.white).to be_between(0, 4)
+		runner.play_game
 	end
 end

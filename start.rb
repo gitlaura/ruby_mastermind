@@ -1,9 +1,13 @@
+require_relative 'lib/main.rb'
 require_relative 'lib/runner.rb'
 
 class Interface
 	def self.get_interface
 		puts "\nWhere would you like to play mastermind?\n1)Command Line\n2)Web\nPlease select a numeric option:"
-		selection = gets.chomp.to_i
+		return selection = gets.chomp.to_i 
+		return selection if selection == 1 || selection == 2
+		puts "Oops, try again!"
+		self.get_interface
 	end
 end
 
@@ -17,36 +21,39 @@ else
 
 	require 'sinatra'
 
-	GlobalVariables = {}
-	GlobalVariables[:secret_code] = nil
-	GlobalVariables[:guesses] = []
+	CodeMaker = nil
+	Guesser = nil
+	SecretCode = nil
+	Guesses = []
+	Main = Main.new
 
 	get '/' do
 		erb :home
 	end
 
 	post '/' do
+		unless params[:code_maker].nil?
+			CodeMaker = params[:code_maker]
+			@display_message = "Awesome! Player 1 is set."
+		end
+
+		unless params[:guesser].nil?
+			Guesser = params[:guesser]
+			@display_message = "Great! Now, player 2 is set."
+		end
+
 		unless params[:secret_code].nil?
-			GlobalVariables[:secret_code] = params[:secret_code]
-			@secret_code_message = "Nice job! Secret code is set."
+			SecretCode = params[:secret_code]
+			@display_message = "Nice job! Secret code is set."
 		end
 
 		unless params[:guess].nil?
-			@guess = params[:guess]
-			UIWeb.get_result(@guess, GlobalVariables[:secret_code])
-			@black = UIWeb.black
-			@white = UIWeb.white
-			GlobalVariables[:guesses] << [@guess, @black, @white]
-			@guess_one, @black_one, @white_one = 				GlobalVariables[:guesses][0][0], GlobalVariables[:guesses][0][1], GlobalVariables[:guesses][0][2]
-			@guess_two, @black_two, @white_two = 				GlobalVariables[:guesses][1][0], GlobalVariables[:guesses][1][1], GlobalVariables[:guesses][1][2] unless GlobalVariables[:guesses].size < 2
-			@guess_three, @black_three, @white_three = 	GlobalVariables[:guesses][2][0], GlobalVariables[:guesses][2][1], GlobalVariables[:guesses][2][2] unless GlobalVariables[:guesses].size < 3
-			@guess_four, @black_four, @white_four = 		GlobalVariables[:guesses][3][0], GlobalVariables[:guesses][3][1], GlobalVariables[:guesses][3][2] unless GlobalVariables[:guesses].size < 4
-			@guess_five, @black_five, @white_five = 		GlobalVariables[:guesses][4][0], GlobalVariables[:guesses][4][1], GlobalVariables[:guesses][4][2] unless GlobalVariables[:guesses].size < 5
-			@guess_six, @black_six, @white_six = 				GlobalVariables[:guesses][5][0], GlobalVariables[:guesses][5][1], GlobalVariables[:guesses][5][2] unless GlobalVariables[:guesses].size < 6
-			@guess_seven, @black_seven, @white_seven = 	GlobalVariables[:guesses][6][0], GlobalVariables[:guesses][6][1], GlobalVariables[:guesses][6][2] unless GlobalVariables[:guesses].size < 7
-			@guess_eight, @black_eight, @white_eight = 	GlobalVariables[:guesses][7][0], GlobalVariables[:guesses][7][1], GlobalVariables[:guesses][7][2] unless GlobalVariables[:guesses].size < 8
-			@guess_nine, @black_nine, @white_nine = 		GlobalVariables[:guesses][8][0], GlobalVariables[:guesses][8][1], GlobalVariables[:guesses][8][2] unless GlobalVariables[:guesses].size < 9
-			@guess_ten, @black_ten, @white_ten = 				GlobalVariables[:guesses][9][0], GlobalVariables[:guesses][9][1], GlobalVariables[:guesses][9][2] unless GlobalVariables[:guesses].size < 10
+			guess = params[:guess]
+			scores = Main.check_guess(guess, SecretCode)
+			black, white = scores[0], scores[1]
+			Guesses << {:guess => guess, :black => black, :white => white}
+			@display_message = "Good guess! Player #2 wins! Please restart at the command line to play again." if black == 4
+			@display_message = "Game over! Player 1 wins." if Guesses.size == 10 && black < 4
 		end
 
 		erb :home

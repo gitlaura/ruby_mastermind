@@ -3,6 +3,7 @@ require_relative 'validity.rb'
 
 class HumanPlayer
 	include Validity
+	include UI
 
 	def select_secret_code
 		give("Player 1: Please create a secret code by selecting any combination of these 4 colors: Yellow, Blue, Orange, Red, Purple, and Green.\nEnter the first letter of each color (ex: YOGY):")
