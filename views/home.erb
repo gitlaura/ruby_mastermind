@@ -5,7 +5,7 @@
 		<input type="radio" name="code_maker" value="2">Computer<br>
 		<input type="submit">
 	</form>
-<% elsif SecretCode ==nil && CodeMaker == "1" %>
+<% elsif SecretCode ==nil && CodeMaker == 1 %>
 	<form action="/" method="post">
 	  Player 1: Please select a secret code: 
 	  <input type="text" name="secret_code">
@@ -18,7 +18,7 @@
 		<input type="radio" name="guesser" value="2">Computer<br>
 		<input type="submit">
 	</form>
-<% elsif Guesser == "1" %>
+<% elsif Guesser == 1 && Guesses.size < 10 && (Guesses.empty? || Guesses.last[:black] < 4) %>
 	<form action="/" method="post">
 	  Player 2: Please make guesses until you get 4 black pegs: 
 	  <input type="text" name="guess">
@@ -45,4 +45,3 @@
 	</table><br>
 <% end %>
 <br><em><%= @display_message %></em>
-<br><%= SecretCode %>

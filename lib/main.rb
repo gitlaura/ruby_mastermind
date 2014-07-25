@@ -25,16 +25,16 @@ class Main
 		@guesser = @players[@message_center.get_guesser - 1]
 	end
 
-	def get_secret_code
-		@secret_code = @code_maker.select_secret_code
+	def get_secret_code(code_maker)
+		@secret_code = code_maker.select_secret_code
 	end
 
 	def display_secret_code_message
 		@message_center.display_code_message
 	end
 
-	def get_guess(guess_counter)
-		@guess = @guesser.get_guess(@black, @white, @guess)
+	def get_guess(guesser)
+		@guess = guesser.get_guess(@black, @white, @guess)
 	end
 
 	def display_guess_message(guess, counter)
