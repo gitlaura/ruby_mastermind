@@ -1,9 +1,6 @@
-require_relative 'validity.rb'
 require_relative 'main.rb'
 
 class WebRunner
-	include Validity
-
 	attr_reader :main
 
 	def initialize
