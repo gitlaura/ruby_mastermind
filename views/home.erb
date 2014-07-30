@@ -1,32 +1,33 @@
-<% if CodeMaker == nil %>
+<% if locals[:code_maker].nil? %>
 	<form action="/" method="post"> 
 		Player #1 will select the secret code. Which type of player would you like?<br>
 		<input type="radio" name="code_maker" value="1">Human<br>
 		<input type="radio" name="code_maker" value="2">Computer<br>
 		<input type="submit">
 	</form>
-<% elsif SecretCode == nil && CodeMaker == 1 %>
-	<form action="/" method="post">
-	  Player 1: Please select a secret code: 
+<% elsif locals[:secret_code] == nil && locals[:code_maker] == 1 %>
+	<form action="/?code_maker=<%=code_maker%>" method="post">
+	  Player 1: Please select a secret code:
 	  <input type="text" name="secret_code">
 	  <input type="submit">
 	</form>
-<% elsif Guesser == nil %>
-	<form action="/" method="post"> 
+<% elsif locals[:guesser] == nil %>
+	<form action="/?code_maker=<%=code_maker%>&secret_code=<%=secret_code%>" method="post"> 
 		Player #2 will try to guess the secret code in less than 10 tries. Which type of player would you like?<br>
 		<input type="radio" name="guesser" value="1">Human<br>
 		<input type="radio" name="guesser" value="2">Computer<br>
 		<input type="submit">
 	</form>
-<% elsif Guesser == 1 && Guesses.size < 10 && (Guesses.empty? || Guesses.last[:black] < 4) %>
-	<form action="/" method="post">
-	  Player 2: Please make guesses until you get 4 black pegs: 
+<% elsif locals[:guesser] == 1 || locals[:guesser] == "1" %>
+	<form action="/?code_maker=<%=code_maker%>&secret_code=<%=secret_code%>&guesser=<%=guesser%>" method="post">
+	  Player 2: Please make guesses until you get 4 black pegs
 	  <input type="text" name="guess">
+	  <input type="hidden" name="guesses" value=<%=locals[:guesses]%> >
 	  <input type="submit">
 	</form><br>
 <% end %>
 
-<% unless Guesses.empty? %>
+<% unless locals[:guesses].nil? %>
 	<h3>Player 2's Guesses:</h3>
 	<table style="width:340px">
 		<th>
@@ -34,14 +35,15 @@
 			<td style="width:100px">Black Pegs</td>
 			<td style="width:100px">White Pegs</td>
 		</th>
-	<% Guesses.each_with_index do |guess, index| %>
+	<% locals[:guesses].each_with_index do |guess, index| %>
 		<tr>
 			<td>#<%= index + 1 %></td>
-			<td><%= guess[:guess] %></td>
-			<td><%= guess[:black] %></td>
-			<td><%= guess[:white] %></td>
+			<td><%= guess[0] %></td>
+			<td><%= guess[1] %></td>
+			<td><%= guess[2] %></td>
 		</tr>
 	<% end %>
 	</table><br>
 <% end %>
 <br><em><%= @display_message %></em>
+<br>Locals: <em><%= locals.inspect %></em>

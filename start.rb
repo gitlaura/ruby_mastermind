@@ -24,54 +24,59 @@ else
 	require 'sinatra'
 	include Validity
 
-	CodeMaker = nil
-	SecretCode = nil
-	Guesser = nil
-	Guesses = []
-
 	get '/' do
-		erb :home
+		erb :home,	:locals => {:code_maker => @code_maker, :secret_code => @secret_code, :guesser => @guesser, :guesses => @guesses}
 	end
 
 	post '/' do
-		unless params[:code_maker].nil?
-			Runner = WebRunner.new
-			CodeMaker = params[:code_maker].to_i
-			if CodeMaker == 2
-				SecretCode = Runner.get_secret_code(CodeMaker)
+		@code_maker = params[:code_maker]
+		@secret_code = params[:secret_code]
+		@guesser = params[:guesser]
+		@guesses = params[:guesses]
+
+		if !@code_maker.nil? && @secret_code.nil? && @guesser.nil? && @guesses.nil?
+			web_runner = WebRunner.new
+			@code_maker = params[:code_maker].to_i
+			if @code_maker == 2
+				@secret_code = web_runner.get_secret_code(@code_maker)
 				@display_message = "Awesome! Player 1 set the secret code."
 			end
 		end
 
-		unless params[:secret_code].nil?
-			SecretCode = params[:secret_code].upcase
-			if valid_combination?(SecretCode)
+		if @code_maker == "1" && !@secret_code.nil? && @guesser.nil? && @guesses.nil?
+			@secret_code = params[:secret_code].upcase
+			if valid_combination?(@secret_code)
 				@display_message = "Nice job! Secret code is set."
 			else
 				@display_message = "Not a valid code. Try again!"
 			end
 		end
 
-		unless params[:guesser].nil?
-			Guesser = params[:guesser].to_i
-			if Guesser == 2
-				Guesses = Runner.get_guesses(Guesser, SecretCode)
-				@display_message = "The secret code was #{SecretCode}. Player #2 wins! Please restart at the command line to play again."
+		if !@code_maker.nil? && !@secret_code.nil? && !@guesser.nil? && @guesses.nil?
+			web_runner = WebRunner.new
+			@guesser = params[:guesser].to_i
+			if @guesser == 2
+				@guesses = web_runner.get_guesses(@guesser, @secret_code)
+				@display_message = "The secret code was #{@secret_code}. Player #2 wins! Please restart at the command line to play again."
 			end
 		end
 
-		unless params[:guess].nil?
+		if @guesser == "1" && !params[:guess].nil?
+			web_runner = WebRunner.new
 			guess = params[:guess].upcase
+			if @guesses.empty?
+				@guesses = []
+			end
 			if valid_combination?(guess)
-				scores = Runner.check_guess(guess, SecretCode)
-				Guesses = Runner.add_guess(guess, scores)
-				@display_message = "Game over! The secret code was #{SecretCode}. Player 1 wins. Please restart at the command line to play again." if Guesses.size == 10
-				@display_message = "Good guess! Player #2 wins! Please restart at the command line to play again." if Guesses.last[:black] == 4
+				scores = web_runner.check_guess(guess, @secret_code)
+				@guesses = web_runner.add_guess(guess, scores, @guesses)
+				@display_message = "Game over! The secret code was #{@secret_code}. Player 1 wins. Please restart at the command line to play again." if @guesses.size == 10
+				@display_message = "Good guess! Player #2 wins! Please restart at the command line to play again." if @guesses.last[1] == 4
 			else
 				@display_message = "Not a valid guess. Try again!"
 			end
 		end
 
-		erb :home
+		erb :home, :locals => {:code_maker => @code_maker, :secret_code => @secret_code, :guesser => @guesser, :guesses => @guesses}
 	end
 end

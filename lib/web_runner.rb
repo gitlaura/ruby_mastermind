@@ -18,7 +18,7 @@ class WebRunner
 		until @main.game_over?(scores, counter)
 			guess = @main.get_guess(@main.players[guesser - 1])
 			scores = check_guess(guess,secret_code)
-			guesses = add_guess(guess, scores)
+			guesses = add_guess(guess, scores, guesses)
 			counter += 1
 		end
 		guesses
@@ -28,9 +28,8 @@ class WebRunner
 		scores = @main.check_guess(guess, secret_code)
 	end
 
-	def add_guess(guess, scores)
-		@guesses ||= []
-		@guesses <<  {:guess => guess, :black => scores.first, :white => scores.last}
+	def add_guess(guess, scores, guesses)
+		guesses <<  [guess, scores.first, scores.last]
 	end
 
 end

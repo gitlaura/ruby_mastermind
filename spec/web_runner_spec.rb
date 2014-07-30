@@ -10,7 +10,7 @@ describe "Web Runner" do
 
 	it "gets guesses" do
 		guesses = web_runner.get_guesses(2,"RRRR")
-		expect(guesses.last[:guess]).to eq("RRRR")
+		expect(guesses.last[0]).to eq("RRRR")
 	end
 
 	it "checks guess" do 
@@ -19,7 +19,7 @@ describe "Web Runner" do
 	end
 
 	it "adds guess to all guess" do 
-		guesses = web_runner.add_guess("RRPP", [2,0])
-		expect(guesses.first).to eq({:guess => "RRPP", :black => 2, :white => 0})
+		guesses = web_runner.add_guess("RRPP", [2,0], [])
+		expect(guesses.first).to eq(["RRPP", 2, 0])
 	end
 end
