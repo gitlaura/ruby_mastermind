@@ -1,8 +1,8 @@
-require 'runner.rb'
+require 'io_runner.rb'
 
-describe "Runner" do  
+describe "IO Runner" do  
 	it "runs the command line game" do
-		runner = Runner.new
+		runner = IORunner.new
 
 		expect(runner.main).to receive(:get_code_maker)
 		expect(runner.main).to receive(:get_guesser)

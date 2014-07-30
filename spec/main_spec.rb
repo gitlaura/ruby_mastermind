@@ -21,9 +21,9 @@ describe "Main" do
 
 	it "gets a secret code" do 
 		allow_message_expectations_on_nil
-		expect(main.code_maker).to receive(:select_secret_code) {"RRRR"}
+		expect(main.human_player).to receive(:select_secret_code) {"RRRR"}
 
-		code = main.get_secret_code
+		code = main.get_secret_code(main.human_player)
 
 		expect(code).to eq("RRRR")
 	end
@@ -38,7 +38,7 @@ describe "Main" do
 		allow_message_expectations_on_nil
 		expect(main.guesser).to receive(:get_guess){"RRYO"}
 
-		guess = main.get_guess(3)
+		guess = main.get_guess(main.guesser)
 
 		expect(guess).to eq("RRYO")
 	end
