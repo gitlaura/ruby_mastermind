@@ -1,0 +1,19 @@
+<h3>Player 2's Guesses:</h3>
+<table style="width:340px">
+	<th>
+		<td style="width:100px">Guess</td>
+		<td style="width:100px">Black Pegs</td>
+		<td style="width:100px">White Pegs</td>
+	</th>
+	<% @guesses.each_with_index do |guess, index| %>
+	<tr>
+		<td>#<%= index + 1 %></td>
+		<td><%= guess[0] %></td>
+		<td><%= guess[1] %></td>
+		<td><%= guess[2] %></td>
+	</tr>
+	<% end %>
+</table><br>
+
+<br><em><%= @display_message %></em>
+<br>Locals: <em><%= locals.inspect %></em>

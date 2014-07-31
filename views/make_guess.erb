@@ -1,0 +1,46 @@
+<form action="/" method="post">
+	 Player 2: Please make guesses until you get 4 black pegs
+	 <input type="text" name="guess">
+	 <input type="hidden" name="secret_code" value=<%= @secret_code %> >
+	 <input type="hidden" name="guess_number" value=<%= @guess_number %> >
+	 <input type="hidden" name="one_guess" value=<%= @one_guess %> >
+	 <input type="hidden" name="one_black" value=<%= @one_black %> >
+	 <input type="hidden" name="2_white" value=<%= @one_white %> >
+	 <input type="hidden" name="2_guess" value=<%= @two_guess %> >
+	 <input type="hidden" name="2_black" value=<%= @two_black %> >
+	 <input type="hidden" name="2_white" value=<%= @two_white %> >
+	 <input type="hidden" name="3_guess" value=<%= @three_guess %> >
+	 <input type="hidden" name="3_black" value=<%= @three_black %> >
+	 <input type="hidden" name="3_white" value=<%= @three_white %> >
+	 <input type="submit">
+</form>
+
+<h3>Player 2's Guesses:</h3>
+<table style="width:340px">
+	<th>
+		<td style="width:100px">Guess</td>
+		<td style="width:100px">Black Pegs</td>
+		<td style="width:100px">White Pegs</td>
+	</th>
+	<tr>
+		<td>#1</td>
+		<td><%= @one_guess %></td>
+		<td><%= @one_black %></td>
+		<td><%= @one_white %></td>
+	</tr>
+	<tr>
+		<td>#1</td>
+		<td><%= @two_guess %></td>
+		<td><%= @two_black %></td>
+		<td><%= @two_white %></td>
+	</tr>
+	<tr>
+		<td>#1</td>
+		<td><%= @three_guess %></td>
+		<td><%= @three_black %></td>
+		<td><%= @three_white %></td>
+	</tr>
+</table><br>
+
+<br><em><%= @display_message %></em>
+<br>Locals: <em><%= locals.inspect %></em>

@@ -1,6 +1,6 @@
 require_relative 'main.rb'
 
-class IORunner
+class TerminalRunner
 	attr_reader :main
 	
 	def initialize

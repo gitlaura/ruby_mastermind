@@ -22,7 +22,7 @@
 	<form action="/?code_maker=<%=code_maker%>&secret_code=<%=secret_code%>&guesser=<%=guesser%>" method="post">
 	  Player 2: Please make guesses until you get 4 black pegs
 	  <input type="text" name="guess">
-	  <input type="hidden" name="guesses" value=<%=locals[:guesses]%> >
+	  <input type="hidden" name="guesses" value=<%=(locals[:guesses])%> >
 	  <input type="submit">
 	</form><br>
 <% end %>
@@ -47,3 +47,4 @@
 <% end %>
 <br><em><%= @display_message %></em>
 <br>Locals: <em><%= locals.inspect %></em>
+<br>Guesses: <%= locals[:guesses] %>

@@ -7,6 +7,12 @@ class WebRunner
 		@main = Main.new
 	end
 
+	def play_game
+		puts "\n**Please go to localhost:4567 to play Mastermind!**\n\n"
+		require_relative 'sinatra_app.rb'
+		SinatraApp.run!
+	end
+
 	def get_secret_code(code_maker)
 		@main.get_secret_code(@main.players[code_maker - 1])
 	end
