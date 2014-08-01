@@ -1,0 +1,29 @@
+<form action="/" method="post">
+	Select four of these colors (R)ed, (Y)ellow, (B)lue, (O)range, (G)reen, or (P)urple to make a guess.<br>
+	Player 2: Please make guesses until you get 4 black pegs.
+	<input type="hidden" name="secret_code" value=<%= @secret_code %> >
+	<% @guesses.each_with_index do |guess, index| %>
+	 	<input type="hidden" name="guess_<%= index + 1 %>" value=<%= guess[0] %> >
+	<% end %>
+	<input type="text" name="new_guess">
+	<input type="submit">
+</form>
+
+<% unless @guesses.empty? %>
+<h3>Player 2's Guesses:</h3>
+<table style="width:340px">
+	<th>
+		<td style="width:100px">Guess</td>
+		<td style="width:100px">Black Pegs</td>
+		<td style="width:100px">White Pegs</td>
+	</th>
+	<% @guesses.each_with_index do |guess, index| %>
+	<tr>
+		<td>#<%= index + 1 %></td>
+		<td><%= guess[0] %></td>
+		<td><%= guess[1] %></td>
+		<td><%= guess[2] %></td>
+	</tr>
+	<% end %>
+</table>
+<% end %>

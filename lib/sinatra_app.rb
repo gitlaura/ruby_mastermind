@@ -1,60 +1,65 @@
-require_relative 'Validity.rb'
+require_relative 'validity.rb'
+require_relative 'web_main.rb'
 require 'sinatra/base'
-include Validity
 
 class SinatraApp < Sinatra::Base
+	include Validity
 
 	get '/' do
-		erb :home
+		erb :code_maker
 	end
 
 	post '/' do
-		if params[:code_maker] > 0
-			@code_maker = params[:code_maker].to_i
-			if @code_maker == 2
-				web_runner = WebRunner.new
-				@secret_code = web_runner.get_secret_code(@code_maker)
-				@display_message = "Awesome! Player 1 set the secret code."
-				erb :guesser
-			elsif 
-				erb :secret_code
-			end
-		elsif !params[:secret_code].nil?
-			@secret_code = params[:secret_code].upcase
-			if valid_combination?(@secret_code)
-				@display_message = "Nice job! Secret code is set."
-				erb :guesser
-			else
-				@display_message = "Not a valid code. Try again!"
-				erb :secret_code
-			end
-		elsif !params[:guesser].nil?
-			guesser = params[:guesser].to_i
+		web_main = WebMain.new 
+
+		if params[:code_maker] == "1"
+			erb :secret_code
+
+		elsif params[:code_maker] == "2"
+			code_maker = params[:code_maker].to_i
+			@secret_code = web_main.get_secret_code(code_maker)
+			@display_message = web_main.display_secret_code_message
+			erb :guesser
+
+		elsif params[:guesser] == "1"
+				@secret_code = params[:secret_code]
+				@guesses = []
+				erb :make_guess
+
+		elsif params[:guesser] == "2"
 			@secret_code = params[:secret_code]
-			if guesser == 2
-				web_runner = WebRunner.new
-				@guesses = web_runner.get_guesses(guesser, @secret_code)
-				@display_message = "The secret code was #{@secret_code}. Player #2 wins! Please restart at the command line to play again."
-				erb :show_guessses
+			guesser = params[:guesser].to_i
+			@guesses = web_main.get_guesses(guesser, @secret_code)
+			@display_message = web_main.end_game(@guesses)
+			erb :show_guesses
+
+		elsif params[:new_guess]
+			new_guess = params[:new_guess].upcase
+			@secret_code = params[:secret_code]
+			if valid_combination?(new_guess)
+				@guesses = web_main.create_array_of_guesses(@secret_code, params)
+				if web_main.game_over?([@guesses.last[1],@guesses.last[2]],@guesses.size + 1)
+					@display_message = web_main.end_game(@guesses)
+					erb :show_guesses
+				else
+					erb :make_guess
+				end
 			else
+				@guesses = web_main.create_array_of_guesses(@secret_code, params, false)
+				@display_message = web_main.invalid_selection_message
 				erb :make_guess
 			end
-		elsif !params[:guess].nil?
-			guess = params[:guess].upcase
-			@guess_number = params[:guess_number].to_i
-			@secret_code = params[:secret_code]
-			if valid_combination?(guess)
-				scores = web_runner.check_guess(guess, @secret_code)
-				"guess_#{@guess_number}".to_sym = guess
-				"black_#{@guess_number}".to_sym = scores.first
-				"white_#{@guess_number}".to_sym = scores.last
-				@guess_number += 1
-				@display_message = "Game over! The secret code was #{@secret_code}. Player 1 wins. Please restart at the command line to play again." if @guess_number == 11
-				@display_message = "Good guess! Player #2 wins! Please restart at the command line to play again." if "black_#{@guess_number}".to_sym == 4
+
+		elsif params[:secret_code]
+			@secret_code = params[:secret_code].upcase
+			if valid_combination?(@secret_code)
+				@display_message = web_main.display_secret_code_message
+				erb :guesser
 			else
-				@display_message = "Not a valid guess. Try again!"
+				@display_message = web_main.invalid_selection_message
+				erb :secret_code
 			end
-			erb :make_guess
 		end
+
 	end
 end

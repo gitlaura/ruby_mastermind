@@ -1,6 +1,6 @@
 require 'sinatra_app'
+require 'rack/test'
 
 describe "Sinatra App" do 
-	it "" do 
-	end
+	include Rack::Test::Methods
 end

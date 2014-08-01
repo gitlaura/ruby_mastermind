@@ -2,10 +2,13 @@ require_relative 'message_center.rb'
 require_relative 'computer_player.rb'
 require_relative 'human_player.rb'
 require_relative 'guess_checker.rb'
+require_relative 'validity.rb'
 
 class Main
 	attr_accessor :code_maker, :guesser
 	attr_reader :interface, :message_center, :computer_player, :human_player, :players, :secret_code, :guess, :black, :white
+
+	include Validity
 
 	COLORS = ["R", "Y", "G", "B", "P", "O"]
 
@@ -17,28 +20,14 @@ class Main
 		@players = [@human_player, @computer_player]
 	end
 
-	def get_code_maker
-		@code_maker = @players[@message_center.get_code_maker - 1]
-	end
-
-	def get_guesser
-		@guesser = @players[@message_center.get_guesser - 1]
-	end
-
 	def get_secret_code(code_maker)
-		@secret_code = code_maker.select_secret_code
-	end
-
-	def display_secret_code_message
-		@message_center.display_code_message
+		player = @players[code_maker - 1]
+		@secret_code = player.select_secret_code
 	end
 
 	def get_guess(guesser)
-		@guess = guesser.get_guess(@black, @white, @guess)
-	end
-
-	def display_guess_message(guess, counter)
-		@message_center.display_guess(guess, counter)
+		player = @players[guesser - 1]
+		@guess = player.get_guess(@black, @white, @guess)
 	end
 
 	def check_guess(guess, secret_code)
@@ -48,26 +37,12 @@ class Main
 		[@black, @white]
 	end
 
-	def display_result(scores)
-		black, white = scores.first, scores.last
-		@message_center.display_results(black, white)
-	end
-
 	def game_over?(scores, counter)
 		if scores == [4,0]
 			return true
 		elsif counter > 10
 			return true
-		else
-			return false
 		end
-	end
-
-	def end_game(scores, counter)
-		if scores.first == 4
-			@message_center.goodbye(counter - 1)
-		else 
-			@message_center.game_over
-		end
+		false
 	end
 end
