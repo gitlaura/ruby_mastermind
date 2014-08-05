@@ -1,4 +1,4 @@
-require 'web_main'
+require_relative '../../lib/sinatra/web_main'
 
 describe "Web Main" do 
 	let(:web_main) {WebMain.new}

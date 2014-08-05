@@ -1,10 +1,10 @@
-require_relative 'terminal_main.rb'
+require_relative 'command_line_main.rb'
 
-class TerminalRunner
+class CommandLineRunner
 	attr_reader :main
 	
 	def initialize
-		@main = TerminalMain.new
+		@main = CommandLineMain.new
 	end
 
 	def play_game

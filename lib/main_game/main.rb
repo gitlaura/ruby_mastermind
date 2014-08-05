@@ -1,6 +1,6 @@
 require_relative 'message_center.rb'
 require_relative 'computer_player.rb'
-require_relative 'human_player.rb'
+require_relative '../command_line/human_player.rb'
 require_relative 'guess_checker.rb'
 require_relative 'validity.rb'
 

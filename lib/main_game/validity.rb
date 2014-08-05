@@ -17,7 +17,7 @@ module Validity
 		if input.length != 4
 			return false
 		elsif
-			input.each_char do |color|
+			input.upcase.each_char do |color|
 				return false if !(color =~ /[RYPOBG]/)
 			end
 		end
