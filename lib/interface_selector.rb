@@ -1,5 +1,5 @@
-require_relative 'validity.rb'
-require_relative 'ui.rb'
+require_relative 'main_game/validity.rb'
+require_relative 'main_game/ui.rb'
 
 class InterfaceSelector
 	class << self

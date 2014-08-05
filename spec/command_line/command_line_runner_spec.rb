@@ -1,8 +1,7 @@
-require 'terminal_runner.rb'
-
-describe "Terminal Runner" do  
+require_relative '../../lib/command_line/command_line_runner.rb'
+describe "Command Line Runner" do  
 	it "runs the command line game" do
-		runner = TerminalRunner.new
+		runner = CommandLineRunner.new
 
 		expect(runner.main).to receive(:get_code_maker)
 		expect(runner.main).to receive(:get_guesser)

@@ -1,5 +1,5 @@
-require_relative 'ui.rb'
-require_relative 'validity.rb'
+require_relative '../main_game/ui.rb'
+require_relative '../main_game/validity.rb'
 
 class HumanPlayer
 	include Validity

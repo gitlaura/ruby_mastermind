@@ -14,7 +14,7 @@ Mastermind is a two-player code-breaking game where one player makes a secret co
 I created this program to mimic the game. Either the user or the computer creates a secret Mastermind code and then the user or the computer tries to guess the correct code within 10 turns. 
 
 ## <a name="Instructions"></a>How to Play
-Fork this repository and clone your repo to your computer. Then enter this in your terminal
+Clone your repo to your computer. Then enter this in your terminal
 
 ```$ ruby start.rb```
 

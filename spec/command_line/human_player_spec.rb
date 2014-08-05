@@ -1,5 +1,4 @@
-require 'human_player.rb'
-
+require_relative '../../lib/command_line/human_player.rb'
 describe "Human player" do 
 	before(:each) do 
 		@human_player = HumanPlayer.new

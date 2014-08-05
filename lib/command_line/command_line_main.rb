@@ -1,7 +1,7 @@
-require_relative 'main.rb'
-require_relative 'ui.rb'
+require_relative '../main_game/main.rb'
+require_relative '../main_game/ui.rb'
 
-class TerminalMain < Main
+class CommandLineMain < Main
 	include UI
 
 	def get_code_maker
