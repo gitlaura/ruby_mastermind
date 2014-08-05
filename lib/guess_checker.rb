@@ -14,11 +14,15 @@ class GuessChecker
 		(0..3).each do |index|
 			if @temp_code[index] == @temp_guess[index]
 				black += 1
-				@temp_code[index] = "X"
-				@temp_guess[index] = "X"
+				@temp_code[index] = no_longer_valid_color
+				@temp_guess[index] = no_longer_valid_color
 			end
 		end
 		black
+	end
+
+	def no_longer_valid_color
+		"X"
 	end
 
 	def count_white_pegs(colors)

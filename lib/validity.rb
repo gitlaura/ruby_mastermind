@@ -1,4 +1,11 @@
 module Validity
+	def valid_interface?(selection)
+		if selection != 1 && selection != 2
+			return false
+		end
+		true
+	end
+
 	def valid_player?(selection)
 		if selection != 1 && selection != 2
 			return false

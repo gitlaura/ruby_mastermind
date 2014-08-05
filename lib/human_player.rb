@@ -1,4 +1,4 @@
-require_relative 'UI.rb'
+require_relative 'ui.rb'
 require_relative 'validity.rb'
 
 class HumanPlayer
