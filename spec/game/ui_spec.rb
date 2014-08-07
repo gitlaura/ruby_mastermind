@@ -11,12 +11,12 @@ describe "UI" do
 		@input = StringIO.new("test info\n")
 		@output = StringIO.new
 
- 		@input_received = @test_class.receive(input: @input)
- 		@test_class.give("test message", output: @output)
+ 		@input_received = @test_class.receive(input = @input)
+ 		@test_class.give("test message", output = @output)
  	end
 
  	it "should output a message for the user" do
- 		expect(@output.string).to eq("\ntest message\n")
+ 		expect(@output.string).to include("test message")
  	end
 
  	it "should return the user's input" do
