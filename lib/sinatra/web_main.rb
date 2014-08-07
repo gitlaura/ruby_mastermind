@@ -1,6 +1,6 @@
 class WebMain < Main
 	def display_secret_code_message
-		@message_center.secret_code_message
+		MessageCenter.secret_code_message
 	end
 
 	def get_guesses(guesser, secret_code)
@@ -32,15 +32,15 @@ class WebMain < Main
 	end
 
 	def invalid_selection_message
-		@message_center.invalid_selection_message
+		MessageCenter.invalid_selection_message
 	end
 
 	def end_game(guesses)
 		scores_of_last_guess = [guesses.last[1], guesses.last[2]]
 		if scores_of_last_guess.first == 4
-			@message_center.player_two_wins_message
+			MessageCenter.player_two_wins_message
 		else 
-			@message_center.player_one_wins_message
+			MessageCenter.player_one_wins_message
 		end
 	end
 end

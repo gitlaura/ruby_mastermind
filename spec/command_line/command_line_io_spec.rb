@@ -1,12 +1,12 @@
-require_relative '../../lib/game/ui.rb'
+require_relative '../../lib/command_line/command_line_io.rb'
 
 class TestClass
 end
 
-describe "UI" do
+describe "Command Line IO" do
  	before(:each) do
  		@test_class = TestClass.new
- 		@test_class.extend(UI)
+ 		@test_class.extend(CommandLineIO)
 
 		@input = StringIO.new("test info\n")
 		@output = StringIO.new
@@ -22,5 +22,4 @@ describe "UI" do
  	it "should return the user's input" do
  		expect(@input_received).to eq("test info")
  	end
-
 end

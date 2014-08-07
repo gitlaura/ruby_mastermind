@@ -5,15 +5,11 @@ require_relative 'guess_checker.rb'
 require_relative 'validity.rb'
 
 class Main
-	attr_accessor :code_maker, :guesser
-	attr_reader :interface, :message_center, :computer_player, :human_player, :players, :secret_code, :guess, :black, :white
-
 	include Validity
 
 	COLORS = ["R", "Y", "G", "B", "P", "O"]
 
 	def initialize
-		@message_center = MessageCenter.new
 		@human_player = HumanPlayer.new
 		@computer_player = ComputerPlayer.new(COLORS)
 		@players = [@human_player, @computer_player]

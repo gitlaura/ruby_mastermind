@@ -1,8 +1,7 @@
 require_relative 'guess_checker.rb'
 
 class CodeList
-	attr_accessor :possibilities, :new_possibilities, :temp_code, :temp_guess 
-	attr_reader :colors
+	attr_accessor :possibilities, :colors
 
 	def initialize(colors)
 		@colors = colors
@@ -18,25 +17,23 @@ class CodeList
 	end
 
 	def update_list(black, white, guess)
-		@new_possibilities = []
-		@saved_guess = guess.to_sym
+		new_possibilities = []
+		saved_guess = guess.to_sym
 		index = 0
 
 		until index == @possibilities.size do 
-			@saved_code = @possibilities[index].to_sym
-			@temp_guess, @temp_code = @saved_guess.to_s, @saved_code.to_s
-			blackcounter = GuessChecker.count_black_pegs(@temp_code, @temp_guess)
-			whitecounter = GuessChecker.count_white_pegs(@temp_code, @temp_guess, @colors)
-			update_new_possibilities(black, blackcounter, white, whitecounter, index)
+			temp_scores = GuessChecker.check_guess(saved_guess, @possibilities[index], @colors)
+			blackcounter, whitecounter = temp_scores.first, temp_scores.last
+			if possibility_has_correct_number_of_colors?(black, blackcounter, white, whitecounter)
+				new_possibilities << @possibilities[index]
+			end
 			index += 1
 		end
 
-		@possibilities = @new_possibilities
+		@possibilities = new_possibilities
 	end
 
-	def update_new_possibilities(black, blackcounter, white, whitecounter, index)
-		if blackcounter == black && whitecounter == white
-			@new_possibilities << @possibilities[index]
-		end
+	def possibility_has_correct_number_of_colors?(black, blackcounter, white, whitecounter)
+		blackcounter == black && whitecounter == white
 	end
 end
