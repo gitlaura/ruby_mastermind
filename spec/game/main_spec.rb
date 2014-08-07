@@ -5,19 +5,16 @@ describe "Main" do
 
 	it "gets a secret code" do 
 		code = main.get_secret_code(2)
-
 		expect(code.size).to eq(4)
 	end
 
 	it "gets a guess" do 
 		code = main.get_guess(2, 1, 0, "POPO")
-
 		expect(code.size).to eq(4)
 	end
 
 	it "checks guess" do 
 		result = main.check_guess("RRYO", "RRRR")
-
 		expect(result).to eq([2,0])
 	end
 

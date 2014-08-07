@@ -1,9 +1,9 @@
-require_relative '../game/ui.rb'
 require_relative '../game/validity.rb'
+require_relative 'command_line_io.rb'
 
 class HumanPlayer
 	include Validity
-	include UI
+	include CommandLineIO
 
 	def select_secret_code
 		give("Player 1: Please create a secret code by selecting any combination of 4 colors from (Y)ellow, (B)lue, (O)range, (R)ed, (P)urple, and (G)reen (ex: YOGY):")
