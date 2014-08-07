@@ -1,4 +1,4 @@
-require_relative '../main_game/validity.rb'
+require_relative '../game/validity.rb'
 require_relative 'web_main.rb'
 require 'sinatra/base'
 
