@@ -5,6 +5,8 @@ require 'sinatra/base'
 class SinatraApp < Sinatra::Base
 	include Validity
 
+	attr_reader :secret_code
+
 	get '/' do
 		erb :code_maker
 	end
