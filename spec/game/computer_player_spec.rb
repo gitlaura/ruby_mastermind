@@ -1,4 +1,4 @@
-require_relative '../../lib/main_game/computer_player.rb'
+require_relative '../../lib/game/computer_player.rb'
 
 describe "Computer Player" do
 	before(:each) do 

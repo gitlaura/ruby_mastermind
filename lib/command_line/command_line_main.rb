@@ -1,5 +1,5 @@
-require_relative '../main_game/main.rb'
-require_relative '../main_game/ui.rb'
+require_relative '../game/main.rb'
+require_relative '../game/ui.rb'
 
 class CommandLineMain < Main
 	include UI

@@ -1,4 +1,4 @@
-require_relative '../../lib/main_game/ui.rb'
+require_relative '../../lib/game/ui.rb'
 
 class TestClass
 end

@@ -1,4 +1,4 @@
-require_relative '../../lib/main_game/code_list.rb'
+require_relative '../../lib/game/code_list.rb'
 
 describe "Code List" do
 	before (:each) do 

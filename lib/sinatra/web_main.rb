@@ -1,4 +1,4 @@
-require_relative '../main_game/main.rb'
+require_relative '../game/main.rb'
 
 class WebMain < Main 
 	def display_secret_code_message

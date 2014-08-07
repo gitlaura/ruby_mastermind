@@ -1,4 +1,4 @@
-require_relative '../../lib/main_game/guess_checker.rb'
+require_relative '../../lib/game/guess_checker.rb'
 
 describe "Guess checker" do 
 	before(:each) do 
