@@ -15,7 +15,7 @@ class CommandLineRunner
 		@main.display_secret_code_message
 		guesser = @main.get_guesser
 		until @main.game_over?(scores, counter)
-			guess = @main.get_guess(guesser)
+			guess = @main.get_guess(guesser, scores.first, scores.last, guess)
 			@main.display_guess_message(guess, counter)
 			scores = @main.check_guess(guess, secret_code)
 			@main.display_result(scores)

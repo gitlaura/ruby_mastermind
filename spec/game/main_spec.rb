@@ -10,7 +10,7 @@ describe "Main" do
 	end
 
 	it "gets a guess" do 
-		code = main.get_guess(2)
+		code = main.get_guess(2, 1, 0, "POPO")
 
 		expect(code.size).to eq(4)
 	end

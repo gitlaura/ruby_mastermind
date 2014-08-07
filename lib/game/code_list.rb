@@ -1,3 +1,5 @@
+require_relative 'guess_checker.rb'
+
 class CodeList
 	attr_accessor :possibilities, :new_possibilities, :temp_code, :temp_guess 
 	attr_reader :colors
@@ -23,37 +25,13 @@ class CodeList
 		until index == @possibilities.size do 
 			@saved_code = @possibilities[index].to_sym
 			@temp_guess, @temp_code = @saved_guess.to_s, @saved_code.to_s
-			blackcounter = count_black_pegs
-			whitecounter = count_white_pegs
+			blackcounter = GuessChecker.count_black_pegs(@temp_code, @temp_guess)
+			whitecounter = GuessChecker.count_white_pegs(@temp_code, @temp_guess, @colors)
 			update_new_possibilities(black, blackcounter, white, whitecounter, index)
 			index += 1
 		end
 
 		@possibilities = @new_possibilities
-	end
-
-	def count_black_pegs
-		blackcounter = 0
-		(0..3).each do |index|
-			if @temp_code[index] == @temp_guess[index]
-				blackcounter += 1
-				@temp_code[index] = no_longer_valid_color
-				@temp_guess[index] = no_longer_valid_color
-			end
-		end
-		blackcounter
-	end
-
-	def no_longer_valid_color
-		"X"
-	end
-
-	def count_white_pegs
-		whitecounter = 0
-		@colors.each do |color|
-			whitecounter += [@temp_code.count(color), @temp_guess.count(color)].min
-		end
-		whitecounter
 	end
 
 	def update_new_possibilities(black, blackcounter, white, whitecounter, index)

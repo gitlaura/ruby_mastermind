@@ -1,6 +1,4 @@
-require_relative '../game/main.rb'
-
-class WebMain < Main 
+class WebMain < Main
 	def display_secret_code_message
 		@message_center.secret_code_message
 	end
@@ -10,7 +8,7 @@ class WebMain < Main
 		counter = 1
 		guesses = []
 		until game_over?(scores, counter)
-			guess = get_guess(guesser)
+			guess = get_guess(guesser, scores.first, scores.last, guess)
 			scores = check_guess(guess,secret_code)
 			guesses <<  [guess, scores.first, scores.last]
 			counter += 1

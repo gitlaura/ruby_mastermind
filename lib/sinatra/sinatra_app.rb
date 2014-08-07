@@ -5,8 +5,6 @@ require 'sinatra/base'
 class SinatraApp < Sinatra::Base
 	include Validity
 
-	attr_reader :secret_code
-
 	get '/' do
 		erb :code_maker
 	end
@@ -14,6 +12,7 @@ class SinatraApp < Sinatra::Base
 	get '/guesser' do
 		web_main = WebMain.new
 		@secret_code = web_main.get_secret_code(2)
+		web_main.display_secret_code_message
 		@display_message = web_main.display_secret_code_message
 		erb :guesser
 	end

@@ -16,25 +16,21 @@ class Main
 		@message_center = MessageCenter.new
 		@human_player = HumanPlayer.new
 		@computer_player = ComputerPlayer.new(COLORS)
-		@guess_checker = GuessChecker.new
 		@players = [@human_player, @computer_player]
 	end
 
 	def get_secret_code(code_maker)
 		player = @players[code_maker - 1]
-		@secret_code = player.select_secret_code
+		player.select_secret_code
 	end
 
-	def get_guess(guesser)
+	def get_guess(guesser, black, white, guess)
 		player = @players[guesser - 1]
-		@guess = player.get_guess(@black, @white, @guess)
+		player.get_guess(black, white, guess)
 	end
 
 	def check_guess(guess, secret_code)
-		@guess_checker.check_guess(guess, secret_code, COLORS)
-		@black = @guess_checker.black
-		@white = @guess_checker.white
-		[@black, @white]
+		GuessChecker.check_guess(guess, secret_code, COLORS)
 	end
 
 	def game_over?(scores, counter)

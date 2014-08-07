@@ -17,20 +17,6 @@ describe "Code List" do
 		expect(@code_list.possibilities).to eq(["PROY", "PGRO"])
 	end
 
-	it "counts the black pegs when comparing the temp_code versus the temp_guess" do 
-		@code_list.temp_guess, @code_list.temp_code = "RRPP", "PORY"
-		expect(@code_list.count_black_pegs).to eq(0)
-		@code_list.temp_guess, @code_list.temp_code = "RRPP", "OROP"
-		expect(@code_list.count_black_pegs).to eq(2)
-	end	
-
-	it "counts the white pegs when comparing the temp_code versus the temp_guess" do 
-		@code_list.temp_guess, @code_list.temp_code = "RRPP", "PORY"
-		expect(@code_list.count_white_pegs).to eq(2)
-		@code_list.temp_guess, @code_list.temp_code = "RRPP", "OOOO"
-		expect(@code_list.count_white_pegs).to eq(0)
-	end	
-
 	it "adds code to the new possibilities list" do 
 		@code_list.possibilities = ["RRRR", "RYPO", "GGRR"]
 		@code_list.new_possibilities = []
