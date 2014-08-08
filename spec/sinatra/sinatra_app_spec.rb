@@ -10,11 +10,11 @@ describe 'Sinatra App' do
   end
 
   describe "get /" do
-	  it "displays code_maker page" do
-			get '/'
+		  it "displays code_maker page" do
+				get '/'
 
-			expect(last_response.body).to include("Player #1 will select the secret code. Which type of player would you like?")
-		end
+				expect(last_response.body).to include("Player #1 will select the secret code. Which type of player would you like?")
+			end
 	end
 
 	describe "get /guesser" do
@@ -53,7 +53,7 @@ describe 'Sinatra App' do
 
 			expect(last_response.redirect?).to be_true
       follow_redirect!
-      last_request.path.should == '/guesser'
+      expect(last_request.path).to eq('/guesser')
 		end
 	end
 
@@ -69,7 +69,7 @@ describe 'Sinatra App' do
 
 			expect(last_response.redirect?).to be_true
       follow_redirect!
-      last_request.path.should == '/secret_code'
+      expect(last_request.path).to eq('/secret_code')
 		end
 	end
 
@@ -85,7 +85,7 @@ describe 'Sinatra App' do
 
 			expect(last_response.redirect?).to be_true
       follow_redirect!
-      last_request.path.should == "/computer_guesses"
+      expect(last_request.path).to eq('/computer_guesses')
 		end
 	end
 
