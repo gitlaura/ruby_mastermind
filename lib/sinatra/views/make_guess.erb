@@ -1,7 +1,6 @@
-<form action="/makeguess" method="post">
+<form action="/newguess" method="post">
 	Select four of these colors (R)ed, (Y)ellow, (B)lue, (O)range, (G)reen, or (P)urple to make a guess.<br>
 	Player 2: Please make guesses until you get 4 black pegs.
-	<input type="hidden" name="secret_code" value=<%= @secret_code %> >
 	<% @guesses.each_with_index do |guess, index| %>
 	 	<input type="hidden" name="guess_<%= index + 1 %>" value=<%= guess[0] %> >
 	<% end %>

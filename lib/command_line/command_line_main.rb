@@ -1,8 +1,15 @@
 require_relative '../game/main.rb'
 require_relative 'command_line_io.rb'
+require_relative 'command_line_human_player.rb'
 
 class CommandLineMain < Main
 	include CommandLineIO
+
+	def initialize
+		human_player = CommandLineHumanPlayer.new
+		computer_player = ComputerPlayer.new(COLORS)
+		@players = [human_player, computer_player]
+	end
 
 	def get_code_maker
 		give MessageCenter.ask_for_code_maker_message
@@ -10,7 +17,7 @@ class CommandLineMain < Main
 		if valid_player?(selection)
 		 	selection
 		else
-			give MessageCenter.invalid_selection_message
+			give invalid_selection_message
 			get_code_maker
 		end
 	end
@@ -21,28 +28,22 @@ class CommandLineMain < Main
 		if valid_player?(selection)
 		 	selection
 		else
-			give MessageCenter.invalid_selection_message
+			give invalid_selection_message
 			get_guesser
 		end
 	end
 
 	def display_secret_code_message
-		give MessageCenter.secret_code_message
+		give secret_code_message
 	end
 
-	def display_guess_message(guess, counter)
-		give MessageCenter.guess_message(guess, counter)
+	def display_scores(guess, counter)
+		black, white = guess[1], guess[2]
+		give MessageCenter.guess_message(guess[0], counter)
+		give MessageCenter.guess_checked_message(black, white)
 	end
 
-	def display_result(scores)
-		give MessageCenter.guess_checked_message(scores.first, scores.last)
-	end
-
-	def end_game(scores)
-		if scores.first == 4
-			give MessageCenter.player_two_wins_message
-		else 
-			give MessageCenter.player_one_wins_message
-		end
+	def display_game_over_message(guesses)
+		give game_over_message(guesses)
 	end
 end

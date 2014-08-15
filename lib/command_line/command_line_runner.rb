@@ -8,19 +8,11 @@ class CommandLineRunner
 	end
 
 	def play_game
-		counter = 1
-		scores = []
 		code_maker = @main.get_code_maker
 		secret_code = @main.get_secret_code(code_maker)
 		@main.display_secret_code_message
 		guesser = @main.get_guesser
-		until @main.game_over?(scores, counter)
-			guess = @main.get_guess(guesser, scores.first, scores.last, guess)
-			@main.display_guess_message(guess, counter)
-			scores = @main.check_guess(guess, secret_code)
-			@main.display_result(scores)
-			counter += 1
-		end
-		@main.end_game(scores)
+		guesses = @main.get_guesses(guesser, secret_code, true)
+		@main.display_game_over_message(guesses)
 	end
 end

@@ -1,7 +1,6 @@
-<form action="/guessone" method="post"> 
+<form action="/guesser" method="post"> 
 	Player #2 will try to guess the secret code in less than 10 tries. Which type of player would you like?<br>
 	<input type="radio" name="guesser" value="1">Human<br>
 	<input type="radio" name="guesser" value="2">Computer<br>
-	<input type="hidden" name="secret_code" value=<%= @secret_code %> >
 	<input type="submit">
 </form>
