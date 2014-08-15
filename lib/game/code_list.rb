@@ -11,26 +11,25 @@ class CodeList
 	def create_list_of_possible_codes
 		@possibilities = @colors.repeated_permutation(4).to_a
 		@possibilities.each_with_index do |possibility, index|
-			temp_string = "#{possibility[0]}#{possibility[1]}#{possibility[2]}#{possibility[3]}"
-			@possibilities[index] = temp_string
+			@possibilities[index] = "#{possibility[0]}#{possibility[1]}#{possibility[2]}#{possibility[3]}"
 		end
 	end
 
 	def update_list(black, white, guess)
 		new_possibilities = []
 		saved_guess = guess.to_sym
-		index = 0
-
-		until index == @possibilities.size do 
-			temp_scores = GuessChecker.check_guess(saved_guess, @possibilities[index], @colors)
+		@possibilities.each do |possible_guess|
+			temp_scores = compare_possible_guess_to_current_guess(saved_guess, possible_guess)
 			blackcounter, whitecounter = temp_scores.first, temp_scores.last
 			if possibility_has_correct_number_of_colors?(black, blackcounter, white, whitecounter)
-				new_possibilities << @possibilities[index]
+				new_possibilities << possible_guess
 			end
-			index += 1
 		end
-
 		@possibilities = new_possibilities
+	end
+
+	def compare_possible_guess_to_current_guess(saved_guess, possible_guess)
+		GuessChecker.check_guess(saved_guess, possible_guess, @colors)
 	end
 
 	def possibility_has_correct_number_of_colors?(black, blackcounter, white, whitecounter)

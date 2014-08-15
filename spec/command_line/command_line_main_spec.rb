@@ -27,21 +27,15 @@ describe "Command Line Main" do
 		command_line_main.display_secret_code_message
 	end
 
-	it "displays a guess message" do 
-		expect(command_line_main).to receive(:give) 
+	it "displays the scores" do 
+		expect(command_line_main).to receive(:give).twice
 
-		command_line_main.display_guess_message("RRRR", 5)
+		command_line_main.display_scores([3, 0], 2)
 	end
 
-	it "displays a result" do 
+	it "displays game over message" do 
 		expect(command_line_main).to receive(:give) 
 
-		command_line_main.display_result([3, 0])
-	end
-
-	it "ends game" do 
-		expect(command_line_main).to receive(:give) 
-
-		command_line_main.display_result([4, 0])
+		command_line_main.display_game_over_message(["RRPP", 4, 0])
 	end
 end

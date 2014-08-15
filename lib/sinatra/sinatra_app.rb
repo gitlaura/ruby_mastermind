@@ -5,73 +5,139 @@ require 'sinatra/base'
 class SinatraApp < Sinatra::Base
 	include Validity
 
+	use Rack::Session::Pool
+	
 	get '/' do
+		session.clear
+		set_main
 		erb :code_maker
 	end
 
-	get '/guesser' do
-		web_main = WebMain.new
-		@secret_code = web_main.get_secret_code(2)
-		web_main.display_secret_code_message
-		@display_message = web_main.display_secret_code_message
-		erb :guesser
-	end
-
-	get '/secret_code' do 
-		@display_message = WebMain.new.invalid_selection_message
+	get '/secret_code' do
+		@display_message = session[:message]
 		erb :secret_code
 	end
 
-	get '/computer_guesses' do 
-		web_main = WebMain.new 
-		@guesses = web_main.get_guesses(2, params[:secret_code])
-		@display_message = web_main.end_game(@guesses)
+	get '/guesser' do
+		@display_message = session[:message]
+		erb :guesser
+	end
+
+	get '/guess' do
+		@display_message = session[:message]
+		@guesses = session[:guesses]
+		erb :make_guess
+	end
+
+	get '/game_over' do
+		@display_message = session[:message]
+		@guesses = session[:guesses]
 		erb :show_guesses
 	end
 
-	post '/secret_code' do
-		if params[:code_maker] == "1"
-			erb :secret_code
-		else
-			redirect '/guesser' 
-		end
-	end
-
-	post '/guesser' do
-		@secret_code = params[:secret_code].upcase
-		if valid_combination?(@secret_code)
-			@display_message = WebMain.new.display_secret_code_message
-			erb :guesser
+	post '/code_maker' do
+		if params[:code_maker] == computer_player
+			get_code_from_computer_player 
+			redirect '/guesser'
 		else
 			redirect '/secret_code'
 		end
 	end
 
-	post '/guessone' do 
-		if params[:guesser] == "1"
-			@secret_code = params[:secret_code]
-			@guesses = []
-			erb :make_guess
+	post '/secret_code' do
+		secret_code = params[:secret_code].upcase
+		if valid_combination?(secret_code)
+			set_secret_code(secret_code)
+			redirect '/guesser'
 		else
-			redirect '/computer_guesses?secret_code=' + params[:secret_code]
+			display_invalid_selection
+			redirect '/secret_code'
 		end
 	end
 
-	post '/makeguess' do
-		web_main = WebMain.new
-		@secret_code = params[:secret_code]
-		if valid_combination?(params[:new_guess])
-			@guesses = web_main.create_array_of_guesses(@secret_code, params)
-			if web_main.game_over?(@guesses.last[1..2],@guesses.size + 1)
-				@display_message = web_main.end_game(@guesses)
-				erb :show_guesses
-			else
-				erb :make_guess
-			end
+	post '/guesser' do
+		reset_message	 
+		if params[:guesser] == computer_player
+			get_guesses_from_computer_player
+			end_game
 		else
-			@guesses = web_main.create_array_of_guesses(@secret_code, params, false)
-			@display_message = web_main.invalid_selection_message
-			erb :make_guess
+			set_guesses
+			redirect '/guess'
 		end
+	end
+
+	post '/newguess' do
+		reset_message
+		guess = params[:new_guess].upcase
+		if valid_combination?(guess)
+			set_human_guess(guess)
+			end_game if game_over?
+			redirect '/guess'
+		else
+			display_invalid_selection
+			redirect '/guess'
+		end
+	end
+
+	private
+
+	def computer_player
+		"2"
+	end	
+
+	def set_main
+		session[:main] = WebMain.new
+	end
+
+	def main
+		session[:main]
+	end
+
+	def set_secret_code(secret_code)
+		session[:secret_code] = secret_code
+		set_message(main.secret_code_message)
+	end
+
+	def set_guesses(guesses = [])
+		session[:guesses] = guesses
+	end
+
+	def add_guess(guess)
+		session[:guesses] << guess
+	end
+
+	def set_message(message)
+		session[:message] = message
+	end
+
+	def reset_message
+		session[:message].clear
+	end
+
+	def display_invalid_selection
+		set_message(main.invalid_selection_message)
+	end
+
+	def get_code_from_computer_player
+		set_secret_code(main.get_secret_code(computer_player.to_i))
+	end
+
+	def get_guesses_from_computer_player
+		set_guesses(main.get_guesses(computer_player.to_i, session[:secret_code]))
+	end
+
+	def set_human_guess(guess)
+		scores = main.check_guess(guess, session[:secret_code])
+		add_guess([guess, scores.first, scores.last])
+	end
+
+	def game_over?
+		final_scores = [session[:guesses].last[1], session[:guesses].last[2]]
+		main.game_over?(final_scores, session[:guesses].size+1)
+	end
+
+	def end_game
+		set_message(main.game_over_message(session[:guesses]))
+		redirect '/game_over'
 	end
 end

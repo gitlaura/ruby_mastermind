@@ -1,4 +1,7 @@
 module Validity
+
+	COLORS = ["R", "Y", "G", "B", "P", "O"]
+
 	def valid_interface?(selection)
 		if selection == 1 || selection == 2
 			return true
@@ -18,7 +21,7 @@ module Validity
 			return false
 		else
 			input.upcase.each_char do |color|
-				return false if !(color =~ /[RYPOBG]/)
+				return false if !(COLORS.include?(color))
 			end
 		end
 		true

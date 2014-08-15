@@ -15,6 +15,11 @@ describe "Code List" do
 		expect(code_list.possibilities).to eq(["PROY", "PGRO"])
 	end
 
+	it "compares possible guess to current guess" do 
+		scores = code_list.compare_possible_guess_to_current_guess("RRRR", "RORO")
+		expect(scores).to eq([2,0])
+	end
+
 	it "checks to see if possibility has the correct number of counters" do 
 		black, blackcounter = 1, 1
 		white, whitecounter = 1, 1
