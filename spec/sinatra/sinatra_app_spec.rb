@@ -47,7 +47,7 @@ describe 'Sinatra App' do
 		it "/code_maker gets a code from computer player" do
 			post "/code_maker", :code_maker => "2"
 
-			expect(last_response.redirect?).to be_true
+			expect(last_response.redirect?).to be true
 			follow_redirect!
       expect(last_request.path).to eq('/guesser')
 		end
@@ -55,7 +55,7 @@ describe 'Sinatra App' do
 		it "/code_maker gets a code from human" do 
 			post "/code_maker", :code_maker => "1"
 
-			expect(last_response.redirect?).to be_true
+			expect(last_response.redirect?).to be true
       follow_redirect!
       expect(last_request.path).to eq('/secret_code')
 		end
@@ -63,7 +63,7 @@ describe 'Sinatra App' do
 		it "/secret_code sets code if code is valid" do 
 			post "/secret_code", :secret_code => "RRPP"
 
-			expect(last_response.redirect?).to be_true
+			expect(last_response.redirect?).to be true
       follow_redirect!
       expect(last_request.path).to eq('/guesser')
 		end
@@ -71,7 +71,7 @@ describe 'Sinatra App' do
 		it "/secret_code asks for new code if code is invalid" do 
 			post "/secret_code", :secret_code => "rr9p"
 
-			expect(last_response.redirect?).to be_true
+			expect(last_response.redirect?).to be true
       follow_redirect!
       expect(last_request.path).to eq('/secret_code')
 		end
@@ -80,7 +80,7 @@ describe 'Sinatra App' do
 			post "/code_maker", :code_maker => "2"
 			post "/guesser", :guesser => "2"
 
-			expect(last_response.redirect?).to be_true
+			expect(last_response.redirect?).to be true
       follow_redirect!
       expect(last_request.path).to eq('/game_over')
 		end
@@ -89,7 +89,7 @@ describe 'Sinatra App' do
 			post "/code_maker", :code_maker => "2"
 			post "/guesser", :guesser => "1"
 
-			expect(last_response.redirect?).to be_true
+			expect(last_response.redirect?).to be true
       follow_redirect!
       expect(last_request.path).to eq('/guess')
 		end
@@ -99,7 +99,7 @@ describe 'Sinatra App' do
 			post "/guesser", :guesser => "1"
 			post "/newguess", :new_guess => "RRPP"
 			
-			expect(last_response.redirect?).to be_true
+			expect(last_response.redirect?).to be true
       follow_redirect!
       expect(last_request.path).to eq('/guess')
 		end
@@ -108,7 +108,7 @@ describe 'Sinatra App' do
 			post "/code_maker", :code_maker => "2"
 			post "/newguess", :new_guess => "mmmmmm"
 			
-			expect(last_response.redirect?).to be_true
+			expect(last_response.redirect?).to be true
       follow_redirect!
       expect(last_request.path).to eq('/guess')
 		end
