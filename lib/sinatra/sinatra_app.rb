@@ -14,24 +14,18 @@ class SinatraApp < Sinatra::Base
 	end
 
 	get '/secret_code' do
-		@display_message = session[:message]
 		erb :secret_code
 	end
 
 	get '/guesser' do
-		@display_message = session[:message]
 		erb :guesser
 	end
 
 	get '/guess' do
-		@display_message = session[:message]
-		@guesses = session[:guesses]
-		erb :make_guess
+		erb :guess
 	end
 
 	get '/game_over' do
-		@display_message = session[:message]
-		@guesses = session[:guesses]
 		erb :show_guesses
 	end
 

@@ -7,7 +7,6 @@
   	<h2>Let's Play Mastermind!</h2>
       <%= yield %>
 			<br>
-			<em><%= locals[:display_message] %></em>
-      <em><%= @display_message %></em>
+      <em><%= session[:message] %></em>
   </body>
 </html>
