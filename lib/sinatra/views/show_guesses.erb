@@ -5,7 +5,7 @@
 		<td style="width:100px">Black Pegs</td>
 		<td style="width:100px">White Pegs</td>
 	</th>
-	<% @guesses.each_with_index do |guess, index| %>
+	<% session[:guesses].each_with_index do |guess, index| %>
 	<tr>
 		<td>#<%= index + 1 %></td>
 		<td><%= guess[0] %></td>
