@@ -1,4 +1,4 @@
-require_relative '../../lib/game/computer_player.rb'
+require_relative '../../../lib/game/computer_player.rb'
 
 describe "Computer Player" do
 	let(:computer_player) {ComputerPlayer.new(["R", "Y", "G", "B", "P", "O"])}

@@ -1,4 +1,4 @@
-require_relative '../../lib/sinatra/sinatra_app'
+require_relative '../../../lib/sinatra/sinatra_app'
 require 'rspec'
 require 'rack/test'
 

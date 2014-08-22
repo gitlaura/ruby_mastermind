@@ -1,4 +1,4 @@
-require_relative '../../lib/game/code_list.rb'
+require_relative '../../../lib/game/code_list.rb'
 
 describe "Code List" do
 	let(:code_list) {CodeList.new(["R", "Y", "G", "B", "P", "O"])}
