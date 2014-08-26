@@ -1,14 +1,21 @@
 require_relative '../../lib/sinatra/sinatra_app'
 require 'rspec'
 require 'rack/test'
+require 'capybara'
 require 'capybara/rspec'
+require 'capybara/dsl'
+require 'selenium-webdriver'
+
+Capybara.register_driver :selenium_chrome do |app|
+  	Capybara::Selenium::Driver.new(app, :browser => :chrome)
+end	
+
+Capybara.current_driver = :selenium_chrome
+Capybara.run_server = false
+Capybara.app_host = 'http://laura-mastermind.herokuapp.com'
+Capybara.app = SinatraApp.new
 
 describe "The Sinatra App", :type => :feature do
-
-	Capybara.run_server = false
-	Capybara.app_host = 'http://laura-mastermind.herokuapp.com/'
-	Capybara.app = SinatraApp.new
-
   context "homepage" do
 	  it "welcomes you to the game" do 
 	  	visit '/'
