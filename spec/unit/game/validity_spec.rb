@@ -1,4 +1,4 @@
-require_relative '../../lib/game/validity.rb'
+require_relative '../../../lib/game/validity.rb'
 
 class TestClass
 end

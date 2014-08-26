@@ -1,4 +1,4 @@
-require_relative '../../lib/game/main.rb'
+require_relative '../../../lib/game/main.rb'
 
 describe "Main" do 
 	let(:main){Main.new}

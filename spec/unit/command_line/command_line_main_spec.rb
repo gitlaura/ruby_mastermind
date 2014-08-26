@@ -1,4 +1,4 @@
-require_relative '../../lib/command_line/command_line_main.rb'
+require_relative '../../../lib/command_line/command_line_main.rb'
 
 describe "Command Line Main" do 
 	let(:command_line_main) {CommandLineMain.new}

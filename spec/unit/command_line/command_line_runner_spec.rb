@@ -1,4 +1,4 @@
-require_relative '../../lib/command_line/command_line_runner.rb'
+require_relative '../../../lib/command_line/command_line_runner.rb'
 describe "Command Line Runner" do  
 	it "runs the command line game" do
 		runner = CommandLineRunner.new

@@ -1,4 +1,4 @@
-require_relative '../../lib/command_line/command_line_io.rb'
+require_relative '../../../lib/command_line/command_line_io.rb'
 
 class TestClass
 end

@@ -1,4 +1,4 @@
-require_relative '../../lib/game/message_center.rb'
+require_relative '../../../lib/game/message_center.rb'
 
 describe 'Message Center' do
 	it "displays code maker message" do 

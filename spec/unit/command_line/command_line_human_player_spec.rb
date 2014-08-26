@@ -1,4 +1,4 @@
-require_relative '../../lib/command_line/command_line_human_player.rb'
+require_relative '../../../lib/command_line/command_line_human_player.rb'
 
 describe "Command Line Human player" do 
 	let(:human_player) {CommandLineHumanPlayer.new}
